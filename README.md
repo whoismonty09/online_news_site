@@ -27,7 +27,7 @@ A Flask-based news website that fetches and displays news articles from NewsAPI.
    python app.py
    ```
 
-5. Open your browser and navigate to `http://localhost:5000`
+5. Open your browser and navigate to `http://localhost:5000` 
 
 ## Project Structure
 
@@ -50,3 +50,5 @@ The application uses NewsAPI to fetch news articles. The API is called in the fo
 ## Error Handling
 
 The application includes basic error handling for API requests. If the API call fails, an empty list of articles will be returned and displayed to the user. 
+
+by - Mayank Malviya
