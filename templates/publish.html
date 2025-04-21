@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Publish Article - News Website{% endblock %}
+
+{% block content %}
+<div class="publish-container">
+    <h1>Publish New Article</h1>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" class="publish-form">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+
+        <div class="form-group">
+            <label for="content">Content</label>
+            <textarea id="content" name="content" rows="10" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="author">Author</label>
+            <input type="text" id="author" name="author" required>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" name="category" required>
+                <option value="">Select a category</option>
+                <option value="general">General</option>
+                <option value="business">Business</option>
+                <option value="technology">Technology</option>
+                <option value="sports">Sports</option>
+                <option value="entertainment">Entertainment</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="image_url">Image URL (optional)</label>
+            <input type="url" id="image_url" name="image_url">
+        </div>
+
+        <button type="submit" class="btn">Publish Article</button>
+    </form>
+</div>
+{% endblock %} 

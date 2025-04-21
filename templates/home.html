@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Home - News Website{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>Welcome to News Website</h1>
+    <p>Stay updated with the latest news from around the world</p>
+    <a href="{{ url_for('news') }}" class="btn">View Latest News</a>
+</div>
+
+<div class="features">
+    <div class="feature">
+        <h2>Latest Headlines</h2>
+        <p>Get access to breaking news and top stories</p>
+    </div>
+    <div class="feature">
+        <h2>Categories</h2>
+        <p>Browse news by different categories</p>
+    </div>
+    <div class="feature">
+        <h2>Real-time Updates</h2>
+        <p>Stay informed with up-to-date news</p>
+    </div>
+</div>
+{% endblock %} 

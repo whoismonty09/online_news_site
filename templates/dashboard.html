@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - News Website{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Welcome, {{ current_user.username }}!</h1>
+        <a href="{{ url_for('publish') }}" class="btn btn-primary">Publish New Article</a>
+    </div>
+
+    <div class="dashboard-stats">
+        <div class="stat-card">
+            <h3>Total Articles</h3>
+            <p>{{ articles|length }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Categories</h3>
+            <p>{{ articles|map(attribute='category')|unique|list|length }}</p>
+        </div>
+    </div>
+
+    <div class="articles-section">
+        <h2>Your Articles</h2>
+        
+        {% if articles %}
+            <div class="articles-grid">
+                {% for article in articles %}
+                    <article class="article-card">
+                        {% if article.image_url %}
+                            <img src="{{ article.image_url }}" alt="{{ article.title }}">
+                        {% endif %}
+                        <div class="content">
+                            <h3>{{ article.title }}</h3>
+                            <p class="category">{{ article.category|title }}</p>
+                            <p class="date">{{ article.created_at.strftime('%B %d, %Y') }}</p>
+                            <div class="actions">
+                                <a href="#" class="btn btn-edit">Edit</a>
+                                <a href="#" class="btn btn-delete">Delete</a>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="no-articles">
+                <p>You haven't published any articles yet.</p>
+                <a href="{{ url_for('publish') }}" class="btn btn-primary">Start Writing</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 

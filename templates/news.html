@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}News - News Website{% endblock %}
+
+{% block content %}
+<div class="news-container">
+    <div class="category-filter">
+        <h2>Categories</h2>
+        <ul>
+            <li><a href="{{ url_for('categories', category='general') }}" class="{{ 'active' if selected_category == 'general' }}">General</a></li>
+            <li><a href="{{ url_for('categories', category='business') }}" class="{{ 'active' if selected_category == 'business' }}">Business</a></li>
+            <li><a href="{{ url_for('categories', category='technology') }}" class="{{ 'active' if selected_category == 'technology' }}">Technology</a></li>
+            <li><a href="{{ url_for('categories', category='sports') }}" class="{{ 'active' if selected_category == 'sports' }}">Sports</a></li>
+            <li><a href="{{ url_for('categories', category='entertainment') }}" class="{{ 'active' if selected_category == 'entertainment' }}">Entertainment</a></li>
+        </ul>
+        <a href="{{ url_for('publish') }}" class="btn publish-btn">Publish Article</a>
+    </div>
+
+    <div class="articles">
+        {% if local_articles %}
+            <h2 class="section-title">Our Articles</h2>
+            {% for article in local_articles %}
+                <article class="news-card local-article">
+                    {% if article.image_url %}
+                        <img src="{{ article.image_url }}" alt="{{ article.title }}">
+                    {% endif %}
+                    <div class="content">
+                        <h2>{{ article.title }}</h2>
+                        <p class="description">{{ article.content }}</p>
+                        <div class="meta">
+                            <span class="author">By {{ article.author }}</span>
+                            <span class="date">{{ article.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        {% endif %}
+
+        {% if api_articles %}
+            <h2 class="section-title">Latest News</h2>
+            {% for article in api_articles %}
+                <article class="news-card">
+                    {% if article.urlToImage %}
+                        <img src="{{ article.urlToImage }}" alt="{{ article.title }}">
+                    {% endif %}
+                    <div class="content">
+                        <h2>{{ article.title }}</h2>
+                        <p class="description">{{ article.description }}</p>
+                        <div class="meta">
+                            <span class="source">{{ article.source.name }}</span>
+                            <span class="date">{{ article.publishedAt }}</span>
+                        </div>
+                        <a href="{{ article.url }}" target="_blank" class="read-more">Read More</a>
+                    </div>
+                </article>
+            {% endfor %}
+        {% endif %}
+
+        {% if not local_articles and not api_articles %}
+            <p class="no-articles">No articles found. Please try again later.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 
